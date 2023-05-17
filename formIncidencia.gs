@@ -21,9 +21,12 @@ function parteIncidencia() {
       console.log('No users found.');
       return;
     }
-
+    const alums = [];
+  for (const user of users) {
+    alums.push(user.name.fullName)
+  }
   alumnos.setTitle('Elija el alumno infractor');
-    alumnos.setChoiceValues([users[0].name.fullName]);
+    alumnos.setChoiceValues(alums);
  
 fechahora.setTitle('Fecha y hora de la incidencia');
 titulo.setTitle('CONDUCTAS CONTRARIAS A LAS NORMAS DE CONVIVENCIA');
