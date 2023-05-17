@@ -1,14 +1,30 @@
 function parteIncidencia() {
-var form = FormApp.create('Parte de Incidencia');
-var fechahora = form.addDateTimeItem();
-var titulo = form.addSectionHeaderItem();
-var item = form.addCheckboxItem();
-var item2 = form.addCheckboxItem();
-var item3 = form.addCheckboxItem();
-var item4 = form.addCheckboxItem();
-var item5 = form.addCheckboxItem();
+  var form = FormApp.create('Parte de Incidencia');
+  var alumnos = form.addListItem();
+  var fechahora = form.addDateTimeItem();
+  var titulo = form.addSectionHeaderItem();
+  var item = form.addCheckboxItem();
+  var item2 = form.addCheckboxItem();
+  var item3 = form.addCheckboxItem();
+  var item4 = form.addCheckboxItem();
+  var item5 = form.addCheckboxItem();
+  var i = 0;
+  const optionalArgs = {
+    customer: 'my_customer',
+    maxResults: 100,
+    orderBy: 'email'
+  };
+  try {
+    const response = AdminDirectory.Users.list(optionalArgs);
+    const users = response.users;
+    if (!users || users.length === 0) {
+      console.log('No users found.');
+      return;
+    }
 
-
+  alumnos.setTitle('Elija el alumno infractor');
+    alumnos.setChoiceValues([users[0].name.fullName]);
+ 
 fechahora.setTitle('Fecha y hora de la incidencia');
 titulo.setTitle('CONDUCTAS CONTRARIAS A LAS NORMAS DE CONVIVENCIA');
 item.setTitle('Perturbar el normal desarrollo de las actividades de la clase');
@@ -48,6 +64,10 @@ item5.setChoices([
         item5.createChoice('No colaborar en la limpieza y conservación del Instituto utilizando adecuadamente los aseos, papeleras, etc.'),
     ]);
 
+    } catch (err) {
+      // TODO (developer)- Handle exception from the Directory API
+      console.log('Failed with error %s', err.message);
+    }
 Logger.log('Published URL: ' + form.getPublishedUrl());
 Logger.log('Editor URL: ' + form.getEditUrl());
 }
