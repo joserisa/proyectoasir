@@ -1,4 +1,7 @@
+//Función que crea el formulario de Google con los campos necesarios para rellenar el parte de incidencia.
 function parteIncidencia() {
+
+  //Declaración de las variables inicializadas con las funciones del formulario para crear los distintos campos.
   var form = FormApp.create('Parte de Incidencia');
   var alumnos = form.addListItem();
   var fechahora = form.addDateTimeItem();
@@ -9,29 +12,36 @@ function parteIncidencia() {
   var item4 = form.addCheckboxItem();
   var item5 = form.addCheckboxItem();
   var i = 0;
+
+  // Argumentos opcionales para la lectura de usuarios del dominio de Google Workspace
   const optionalArgs = {
     customer: 'my_customer',
-    maxResults: 100,
-    orderBy: 'email'
+    maxResults: 500,
+    orderBy: 'familyName'
   };
   try {
+    // Constantes donde se guardan las lecturas del LDAP de Google.
     const response = AdminDirectory.Users.list(optionalArgs);
     const users = response.users;
     if (!users || users.length === 0) {
       console.log('No users found.');
       return;
     }
+    //Un Array vacío donde se guardará el nombre completo de los alumnos.
     const alums = [];
-  for (const user of users) {
-    alums.push(user.name.fullName)
-  }
-  alumnos.setTitle('Elija el alumno infractor');
-    alumnos.setChoiceValues(alums);
+
+    //Bucle for que llena el Array alums con los alumnos del LDAP
+    for (const user of users) {
+      alums.push(user.name.familyName + ' ' + user.name.givenName)
+    }
+    //Crea el campo de lista desplegable con los alumnos que conforman el Array alumns
+    alumnos.setTitle('Elija el alumno infractor');
+      alumnos.setChoiceValues(alums);
  
-fechahora.setTitle('Fecha y hora de la incidencia');
-titulo.setTitle('CONDUCTAS CONTRARIAS A LAS NORMAS DE CONVIVENCIA');
-item.setTitle('Perturbar el normal desarrollo de las actividades de la clase');
-item.setChoices([
+    fechahora.setTitle('Fecha y hora de la incidencia');
+    titulo.setTitle('CONDUCTAS CONTRARIAS A LAS NORMAS DE CONVIVENCIA');
+    item.setTitle('Perturbar el normal desarrollo de las actividades de la clase');
+    item.setChoices([
         item.createChoice('Dando voces.'),
         item.createChoice('Levantándose sin motivo.'),
         item.createChoice('Comiendo y/o bebiendo.'),
