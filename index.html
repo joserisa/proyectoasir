@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <title>Formulario incidencia</title>
+  </head>
+  <body>
+    <div class='container'>
+      <h1>Bienvenido al formulario de incidencias</h1>
+      
+      <script>
+        
+        var listado;
+
+        function onSuccess(elcurso) {
+         
+          listado = document.getElementById('lista');
+          listado.innerHTML = elcurso;
+          listado.addEventListener('click', (e) =>{
+          
+          const confirmacion = document.getElementById('boton');
+          confirmacion.addEventListener('click', creaFormulario);
+          console.log("curso clicado" + e.target.value);
+          
+          function creaFormulario(creacion) {
+
+            var cForm = document.getElementById('formu');
+            //cForm.innerHTML = 'Formulario creado: ' + '<a href="' + creacion +'">Enlace al formulario</a>';
+            cForm.innerHTML = 'Formulario creado: ' + creacion;
+
+          
+          }
+
+          google.script.run.withSuccessHandler(creaFormulario).parteIncidencia(e.target.value);})
+        
+        }
+      
+      google.script.run.withSuccessHandler(onSuccess).listarCursos();
+      </script>
+      <p>Lista de cursos.</p>
+      <button id='boton'>Confirmar curso</button>
+      <select id="lista"></select>
+      <div id='formu'>Formulario no creado todavía. Elija curso y confirme</div>
+    </div>
+    
+  </body>
+</html>
