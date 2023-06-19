@@ -16,17 +16,15 @@
          
           listado = document.getElementById('lista');
           listado.innerHTML = elcurso;
-          listado.addEventListener('click', (e) =>{
-          
-          const confirmacion = document.getElementById('boton');
-          confirmacion.addEventListener('click', creaFormulario);
-          console.log("curso clicado" + e.target.value);
-          
+          listado.addEventListener('change', (e) =>{
+            console.log(e.target.value);
+
           function creaFormulario(creacion) {
 
             var cForm = document.getElementById('formu');
             //cForm.innerHTML = 'Formulario creado: ' + '<a href="' + creacion +'">Enlace al formulario</a>';
-            cForm.innerHTML = 'Formulario creado: ' + creacion;
+            //cForm.innerHTML = 'Formulario creado: ' + '<a href="'+creacion+'">enlace</a>';
+            window.location.replace(creacion);
 
           
           }
@@ -35,12 +33,12 @@
         
         }
       
-      google.script.run.withSuccessHandler(onSuccess).listarCursos();
+      google.script.run.withSuccessHandler(onSuccess).cargarCursos();
       </script>
       <p>Lista de cursos.</p>
-      <button id='boton'>Confirmar curso</button>
       <select id="lista"></select>
-      <div id='formu'>Formulario no creado todavía. Elija curso y confirme</div>
+      <p>Seleccione curso y espere a ser redirigido al formulario</p>
+      <div id='formu'></div>
     </div>
     
   </body>
