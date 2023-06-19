@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <title>Formulario incidencia</title>
+  </head>
+  <body>
+    <div class='container'>
+      
+      <script>
+        
+        var listado;
+
+        function onSuccess(elcurso) {
+         
+          listado = document.getElementById('lista');
+          listado.innerHTML = elcurso;
+          listado.addEventListener('change', (e) =>{
+            console.log(e.target.value);
+
+          function creaFormulario(creacion) {
+
+            window.open('https://docs.google.com/forms/d/e/1FAIpQLSfvNAIhuujpdDDu8JYooF5lJoie_FPZqVl6Wju79v1uVzrRTA/viewform', '_blank');
+          
+          }
+
+          google.script.run.withSuccessHandler(creaFormulario).actualizarAlumnos(e.target.value);})
+        
+        }
+      
+      google.script.run.withSuccessHandler(onSuccess).cargarCursos();
+      </script>     
+      <h2>Espere a que la lista desplegable de cursos cargue.</h2> 
+      <h2>Una vez haya cargado, elija el curso del desplegable y espere a que se le abra el formulario en una nueva pestaña</h2> 
+      <select id="lista"></select>
+
+    </div>
+    
+  </body>
+</html>
