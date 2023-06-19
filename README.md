@@ -1,4 +1,8 @@
 # proyectoasir
+---------------------------------------------------------------------------------------
+¡¡¡¡IMPORTANTE!!!!
+La carpeta llamada "CODIGOS SEGUNDA PARTE" contiene los scripts que son usados para la instalación del sistema y son los que se van a usar para hacerlo funcionar. El resto son los scripts usados en un planteamiento del proyecto anterior pero que no convencía el resultado.
+---------------------------------------------------------------------------------------
 Este repositorio contiene todo acerca del proyecto final del Grado Superior de Administración de Sistemas Informáticos en Red, desde los scripts utilizados durante su fase de desarrollo como los scripts finales incluyendo también la documentación del proyecto que se deberá entregar también.
 
 
